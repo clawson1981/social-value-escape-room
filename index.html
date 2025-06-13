@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Social Value Escape Room</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <style>
+        body {{ margin: 0; }}
+        canvas {{ display: block; margin: 0 auto; }}
+    </style>
+</head>
+<body>
+<script>
+    const config = {{
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        backgroundColor: '#f4f4f4',
+        scene: [PuzzleScene]
+    }};
+
+    class PuzzleScene extends Phaser.Scene {{
+        constructor() {{
+            super({{ key: 'PuzzleScene' }});
+        }}
+
+        preload() {{}}
+
+        create() {{
+            this.add.text(100, 50, 'Puzzle 1: Insight', {{ font: '28px Arial', fill: '#000' }});
+            this.add.text(100, 100, 'Which issue aligns best with a social value initiative?', {{ font: '18px Arial', fill: '#000' }});
+
+            let optionA = this.add.text(100, 160, 'A. Youth unemployment and antisocial behaviour', {{ font: '16px Arial', fill: '#000', backgroundColor: '#ddd', padding: 10 }});
+            let optionB = this.add.text(100, 210, 'B. Aging population lacking access to local healthcare', {{ font: '16px Arial', fill: '#000', backgroundColor: '#ddd', padding: 10 }});
+            let optionC = this.add.text(100, 260, 'C. Local SMEs struggling to compete with national chains', {{ font: '16px Arial', fill: '#000', backgroundColor: '#ddd', padding: 10 }});
+
+            optionA.setInteractive().on('pointerdown', () => this.showFeedback(true));
+            optionB.setInteractive().on('pointerdown', () => this.showFeedback(false));
+            optionC.setInteractive().on('pointerdown', () => this.showFeedback(false));
+        }}
+
+        showFeedback(correct) {{
+            let msg = correct ? 'Correct! You’ve identified a high-impact opportunity!' : 'That’s important, but not the best fit for scalable social value.';
+            this.add.text(100, 320, msg, {{ font: '18px Arial', fill: correct ? '#0a0' : '#a00' }});
+        }}
+    }}
+
+    const game = new Phaser.Game(config);
+</script>
+</body>
+</html>
